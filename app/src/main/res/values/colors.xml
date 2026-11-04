@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 悬浮窗相关 -->
+    <color name="overlay_ball_bg">#E6333BEF</color>
+    <color name="overlay_ball_stroke">#FFFFFFFF</color>
+    <color name="overlay_ball_icon">#FFFFFFFF</color>
+    <color name="overlay_panel_bg">#F226282E</color>
+    <color name="overlay_panel_title">#FFFFFFFF</color>
+    <color name="overlay_panel_sub">#B3FFFFFF</color>
+    <color name="overlay_item_bg">#33FFFFFF</color>
+    <color name="overlay_item_bg_pressed">#4DFFFFFF</color>
+    <color name="overlay_status_ok">#FF4CAF50</color>
+    <color name="overlay_status_running">#FFFFC107</color>
+    <color name="overlay_status_error">#FFFF5252</color>
 </resources>

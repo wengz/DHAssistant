@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">DHAssistant</string>
+
+    <!-- 无障碍服务 -->
+    <string name="accessibility_service_summary">开启后，DHAssistant 可以通过无障碍服务执行界面自动化操作</string>
+    <string name="accessibility_service_description">用于执行预设的自动化任务：查找并点击界面元素、输入文本、滑动页面、启动应用等。所有操作仅在用户主动点击任务时执行。</string>
+
+    <!-- 主界面 -->
+    <string name="main_title">DHAssistant 自动化助手</string>
+    <string name="main_subtitle">通过无障碍服务执行界面自动化任务</string>
+    <string name="status_accessibility_on">无障碍服务：已开启</string>
+    <string name="status_accessibility_off">无障碍服务：未开启</string>
+    <string name="status_overlay_on">悬浮窗权限：已授予</string>
+    <string name="status_overlay_off">悬浮窗权限：未授予</string>
+    <string name="action_open_accessibility">去开启无障碍服务</string>
+    <string name="action_open_overlay">去授予悬浮窗权限</string>
+    <string name="action_open_settings">打开系统设置</string>
+    <string name="action_show_floating_ball">显示悬浮球</string>
+    <string name="usage_tips_title">使用说明</string>
+    <string name="usage_tips_body">1. 开启无障碍服务与悬浮窗权限后，桌面会出现可拖动的小球。\n2. 点击小球打开任务面板，选中任务即可执行自动化操作。\n3. 面板右上角的关闭按钮会收起面板并重新显示小球。</string>
+
+    <!-- 悬浮窗 -->
+    <string name="floating_ball_desc">悬浮球，点击展开任务面板</string>
+    <string name="panel_title">自动化任务</string>
+    <string name="panel_close_desc">关闭面板</string>
+    <string name="panel_idle">就绪，请选择任务</string>
+    <string name="panel_running">正在执行：%1$s</string>
+    <string name="panel_success">完成：%1$s</string>
+    <string name="panel_failed">失败：%1$s</string>
+    <string name="panel_no_service">请先开启无障碍服务</string>
+    <string name="panel_no_overlay">请先授予悬浮窗权限</string>
+
+    <!-- 任务 -->
+    <string name="task_open_settings">打开系统设置</string>
+    <string name="task_open_settings_desc">演示任务：启动设置应用并等待界面就绪</string>
+    <string name="task_search_in_settings">在设置中搜索</string>
+    <string name="task_search_in_settings_desc">演示任务：启动设置、点击搜索框并输入关键词</string>
+    <string name="task_scroll_and_back">滑动页面并返回</string>
+    <string name="task_scroll_and_back_desc">演示任务：展示滑动与返回键操作</string>
 </resources>

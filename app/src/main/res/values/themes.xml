@@ -13,4 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- 透明悬浮窗主题：用于悬浮球与面板的 WindowManager 容器 -->
+    <style name="Theme.DHAssistant.Transparent" parent="Theme.DHAssistant">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+    </style>
 </resources>
