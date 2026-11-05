@@ -51,11 +51,11 @@ public class DHAccessibilityService extends AccessibilityService implements Acce
                     | AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS
                     | AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
                     | AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS);
-            info.eventTypes = AccessibilityServiceInfo.EVENT_TYPE_WINDOW_STATE_CHANGED
-                    | AccessibilityServiceInfo.EVENT_TYPE_WINDOW_CONTENT_CHANGED
-                    | AccessibilityServiceInfo.EVENT_TYPE_VIEW_CLICKED
-                    | AccessibilityServiceInfo.EVENT_TYPE_VIEW_FOCUSED
-                    | AccessibilityServiceInfo.EVENT_TYPE_VIEW_SCROLLED;
+            info.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
+                    | AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
+                    | AccessibilityEvent.TYPE_VIEW_CLICKED
+                    | AccessibilityEvent.TYPE_VIEW_FOCUSED
+                    | AccessibilityEvent.TYPE_VIEW_SCROLLED;
             info.notificationTimeout = 100;
             setServiceInfo(info);
         }
@@ -136,12 +136,14 @@ public class DHAccessibilityService extends AccessibilityService implements Acce
     @NonNull
     @Override
     public List<AccessibilityNodeInfo> findNodesByContentDescription(@NonNull String desc) {
-        AccessibilityNodeInfo root = getRootInActiveWindow();
-        if (root == null) {
-            return new ArrayList<>();
-        }
-        List<AccessibilityNodeInfo> result = root.findAccessibilityNodeInfosByContentDescription(desc);
-        return result == null ? new ArrayList<>() : result;
+//        AccessibilityNodeInfo root = getRootInActiveWindow();
+//        if (root == null) {
+//            return new ArrayList<>();
+//        }
+//        List<AccessibilityNodeInfo> result = root.findAccessibilityNodeInfosByContentDescription(desc);
+//        return result == null ? new ArrayList<>() : result;
+
+        return new ArrayList<>();
     }
 
     @NonNull
@@ -152,7 +154,7 @@ public class DHAccessibilityService extends AccessibilityService implements Acce
     }
 
     @Override
-    public boolean performGlobalAction(int action) {
+    public boolean performGlobalAction_(int action) {
         return super.performGlobalAction(action);
     }
 
@@ -173,7 +175,7 @@ public class DHAccessibilityService extends AccessibilityService implements Acce
             GestureDescription gesture = new GestureDescription.Builder()
                     .addStroke(new GestureDescription.StrokeDescription(path, 0L, 400L))
                     .build();
-            return dispatchGesture(gesture, null);
+            return dispatchGesture(gesture, null, null);
         });
     }
 
@@ -191,7 +193,11 @@ public class DHAccessibilityService extends AccessibilityService implements Acce
     @Override
     public boolean launchActivity(@NonNull Intent intent) {
         try {
-            return MainThread.callSync(() -> startActivity(intent));
+            return MainThread.callSync(() -> {
+                    startActivity(intent);
+                    return true;
+                }
+            );
         } catch (Throwable t) {
             LogUtil.e("startActivity 失败", t);
             return false;

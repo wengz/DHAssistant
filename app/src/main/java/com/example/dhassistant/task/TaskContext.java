@@ -155,15 +155,15 @@ public class TaskContext {
      * 执行全局动作（返回 / HOME / 通知栏 等）。
      */
     public boolean performGlobalAction(int action) {
-        return bridge.performGlobalAction(action);
+        return bridge.performGlobalAction_(action);
     }
 
     /**
      * 返回键。
      */
     public boolean goBack() {
-        return bridge.performGlobalAction(
-                android.accessibilityservice.AccessibilityServiceInfo.GLOBAL_ACTION_BACK);
+        return bridge.performGlobalAction_(
+                android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
     /**
@@ -204,7 +204,7 @@ public class TaskContext {
         }
         try {
             SystemClock.sleep(millis);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             Thread.currentThread().interrupt();
             LogUtil.w("task interrupted while sleeping");
         }

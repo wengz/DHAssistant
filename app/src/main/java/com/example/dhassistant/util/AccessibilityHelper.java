@@ -39,11 +39,11 @@ public final class AccessibilityHelper {
         String target = new ComponentName(context, "com.example.dhassistant.service.DHAccessibilityService")
                 .flattenToString();
         for (android.accessibilityservice.AccessibilityServiceInfo info : services) {
-            if (info == null || info.resolveInfo == null || info.resolveInfo.serviceInfo == null) {
+            if (info == null || info.getResolveInfo() == null || info.getResolveInfo().serviceInfo == null) {
                 continue;
             }
-            String current = new ComponentName(info.resolveInfo.serviceInfo.packageName,
-                    info.resolveInfo.serviceInfo.name).flattenToString();
+            String current = new ComponentName(info.getResolveInfo().serviceInfo.packageName,
+                    info.getResolveInfo().serviceInfo.name).flattenToString();
             if (target.equals(current)) {
                 return true;
             }

@@ -48,7 +48,7 @@ public interface AccessibilityBridge {
      *
      * @param action {@link AccessibilityServiceInfo#GLOBAL_ACTION_BACK} 等
      */
-    boolean performGlobalAction(int action);
+    boolean performGlobalAction_(int action);
 
     /**
      * 在指定方向执行一次滑动手势（用于不可滚动的窗口）。

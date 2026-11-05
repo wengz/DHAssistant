@@ -11,6 +11,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <item name="textColorSecondary">@color/black</item>
     </style>
 
     <!-- 透明悬浮窗主题：用于悬浮球与面板的 WindowManager 容器 -->
