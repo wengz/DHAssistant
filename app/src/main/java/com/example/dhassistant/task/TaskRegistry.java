@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import com.example.dhassistant.util.LogUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,8 +76,9 @@ public final class TaskRegistry {
      * <p>在这里追加你的业务任务即可。</p>
      */
     private static void registerDefaultTasks() {
-        register(new com.example.dhassistant.task.demo.OpenSettingsTask());
-        register(new com.example.dhassistant.task.demo.SearchInSettingsTask());
-        register(new com.example.dhassistant.task.demo.ScrollAndBackTask());
+//        register(new com.example.dhassistant.task.demo.OpenSettingsTask());
+//        register(new com.example.dhassistant.task.demo.SearchInSettingsTask());
+//        register(new com.example.dhassistant.task.demo.ScrollAndBackTask());
+        register(new AddSku());
     }
 }
