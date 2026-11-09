@@ -20,40 +20,22 @@ public class AddSku extends BaseTask {
         int actionCount = 0;
         do {
             log("in loop actionCount="+actionCount);
-            AccessibilityNodeInfo addToCartBtn = null;
-            while (addToCartBtn == null) {
-                addToCartBtn = context.findById("com.dhgate.buyermob:id/btn_addtocart");
-                context.sleep(100);
-            }
-
-            while(!context.click(addToCartBtn)){
-                context.sleep(100);
-            }
+            AccessibilityNodeInfo addToCartBtn = findById(context,"com.dhgate.buyermob:id/btn_addtocart");
+            click(context, addToCartBtn);
             context.sleep(1000);
 
-            AccessibilityNodeInfo skuList = null;
-            while (skuList == null){
-                skuList = context.findById("com.dhgate.buyermob:id/sku_list");
-                context.sleep(100);
-            }
+            AccessibilityNodeInfo skuList = findById(context,"com.dhgate.buyermob:id/sku_list");
             if (childCount == 0) {
                 childCount = skuList.getChildCount();
             }
             AccessibilityNodeInfo skuItem = skuList.getChild(actionCount);
             log("skuItem="+skuItem);
-            while(!context.click(skuItem)){
-                context.sleep(100);
-            }
+            click(context, skuItem);
             context.sleep(1000);
 
-            AccessibilityNodeInfo continueBtn = null;
-            while (continueBtn == null) {
-                continueBtn = context.findById("com.dhgate.buyermob:id/btn_paynow");
-                context.sleep(100);
-            }
-            while(!context.click(continueBtn)){
-                context.sleep(100);
-            }
+            AccessibilityNodeInfo continueBtn = findById(context,"com.dhgate.buyermob:id/btn_paynow");
+            click(context, continueBtn);
+
             actionCount++;
             log("in loop, end, childCount="+childCount);
         } while (actionCount < childCount);

@@ -1,5 +1,7 @@
 package com.example.dhassistant.task;
 
+import android.view.accessibility.AccessibilityNodeInfo;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -31,6 +33,40 @@ public abstract class BaseTask implements AutomationTask {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public AccessibilityNodeInfo findById(TaskContext context, String id) {
+        return  findById(context, id, 5);
+    }
+
+    public AccessibilityNodeInfo findById(TaskContext context, String id, int timeoutSec) {
+        AccessibilityNodeInfo node = null;
+        int tryCount = 0;
+        while (node == null && tryCount++ < timeoutSec*10) {
+            node = context.findById(id);
+            context.sleep(100);
+        }
+
+        if (node != null) {
+            return node;
+        } else {
+            throw new IllegalStateException("findById timeout id="+id);
+        }
+    }
+
+    public void click(TaskContext context, AccessibilityNodeInfo node) {
+        click(context, node, 5);
+    }
+
+    public void click(TaskContext context, AccessibilityNodeInfo node, int timeoutSec) {
+        int tryCount = 0;
+        boolean clickResult;
+        while(!(clickResult = context.click(node)) && tryCount++ < timeoutSec*10){
+            context.sleep(100);
+        }
+        if (!clickResult) {
+            throw new IllegalStateException("click timeout ndoe="+node);
+        }
     }
 
     @NonNull
