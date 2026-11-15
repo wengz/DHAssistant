@@ -80,5 +80,6 @@ public final class TaskRegistry {
 //        register(new com.example.dhassistant.task.demo.SearchInSettingsTask());
 //        register(new com.example.dhassistant.task.demo.ScrollAndBackTask());
         register(new AddSku());
+        register(new Register());
     }
 }

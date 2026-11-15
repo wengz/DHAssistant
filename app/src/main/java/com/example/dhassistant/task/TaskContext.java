@@ -51,6 +51,11 @@ public class TaskContext {
         return (nodes == null || nodes.isEmpty()) ? null : nodes.get(0);
     }
 
+    public AccessibilityNodeInfo findById(@NonNull String viewId, int index) {
+        List<AccessibilityNodeInfo> nodes = bridge.findNodesByViewId(viewId);
+        return (nodes == null || nodes.isEmpty()) ? null : nodes.get(index);
+    }
+
     /**
      * 按文本查找第一个匹配节点。
      */
