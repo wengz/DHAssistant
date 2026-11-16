@@ -200,6 +200,11 @@ public class TaskContext {
         return bridge.buildSwipePath(direction);
     }
 
+    public void tapAt(float x, float y) {
+        bridge.performTapAtCoordinate(x, y, 50);
+    }
+
+
     /**
      * 睡眠。
      */

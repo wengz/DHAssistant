@@ -76,4 +76,6 @@ public interface AccessibilityBridge {
      * 手势路径构造辅助类（供任务层构造复杂手势时使用）。
      */
     Path buildSwipePath(int direction);
+
+    void performTapAtCoordinate(float x, float y, long duration);
 }

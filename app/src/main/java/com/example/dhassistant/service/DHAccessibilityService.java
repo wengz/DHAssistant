@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityWindowInfo;
@@ -38,6 +39,23 @@ public class DHAccessibilityService extends AccessibilityService implements Acce
     private static DHAccessibilityService instance;
 
     private final AccessibilityEventDispatcher eventDispatcher = new AccessibilityEventDispatcher();
+
+    public  void performTapAtCoordinate(float x, float y, long duration) {
+        Path clickPath = new Path();
+        clickPath.moveTo(x, y);
+
+        GestureDescription.StrokeDescription clickStroke =
+                new GestureDescription.StrokeDescription(clickPath, 0, duration);
+
+        GestureDescription.Builder clickBuilder = new GestureDescription.Builder();
+        clickBuilder.addStroke(clickStroke);
+        GestureDescription gesture = clickBuilder.build();
+
+        boolean success = dispatchGesture(gesture, null, null);
+        if (success) {
+            Log.d("AccessibilityClick", "点击手势已分发");
+        }
+    }
 
     @Override
     protected void onServiceConnected() {
