@@ -19,6 +19,18 @@
     <string name="usage_tips_title">使用说明</string>
     <string name="usage_tips_body">1. 开启无障碍服务与悬浮窗权限后，桌面会出现可拖动的小球。\n2. 点击小球打开任务面板，选中任务即可执行自动化操作。\n3. 面板右上角的关闭按钮会收起面板并重新显示小球。</string>
 
+    <!-- 账号文件 -->
+    <string name="account_section_title">账号文件</string>
+    <string name="action_import_account">导入 account.txt</string>
+    <string name="action_refresh_account">刷新账号列表</string>
+    <string name="account_path_public">查找路径：%1$s</string>
+    <string name="account_path_none">未找到账号文件</string>
+    <string name="account_count">已加载 %1$d 个账号</string>
+    <string name="account_count_zero">未加载到任何账号</string>
+    <string name="account_import_success">已导入 %1$d 个账号</string>
+    <string name="account_import_failed">导入失败：%1$s</string>
+    <string name="account_import_none">所选文件没有有效账号</string>
+
     <!-- 悬浮窗 -->
     <string name="floating_ball_desc">悬浮球，点击展开任务面板</string>
     <string name="panel_title">自动化任务</string>
@@ -29,6 +41,12 @@
     <string name="panel_failed">失败：%1$s</string>
     <string name="panel_no_service">请先开启无障碍服务</string>
     <string name="panel_no_overlay">请先授予悬浮窗权限</string>
+    <string name="panel_no_account_file">未找到 account.txt，请先在 Download 目录中放入账号文件</string>
+    <string name="panel_select_account">请选择用于 %1$s 的账号</string>
+
+    <!-- 账号选择弹窗 -->
+    <string name="account_picker_title">选择账号</string>
+    <string name="account_picker_cancel">取消</string>
 
     <!-- 任务 -->
     <string name="task_open_settings">打开系统设置</string>

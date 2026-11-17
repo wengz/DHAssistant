@@ -9,10 +9,16 @@ import androidx.annotation.Nullable;
 
 import com.example.dhassistant.R;
 import com.example.dhassistant.service.DHAccessibilityService;
+import com.example.dhassistant.task.Account;
+import com.example.dhassistant.task.AccountAwareTask;
+import com.example.dhassistant.task.AccountFileLoader;
 import com.example.dhassistant.task.AutomationTask;
 import com.example.dhassistant.task.TaskRegistry;
 import com.example.dhassistant.task.TaskResult;
 import com.example.dhassistant.util.LogUtil;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 悬浮窗控制器。
@@ -21,6 +27,7 @@ import com.example.dhassistant.util.LogUtil;
  * <ol>
  *     <li>管理小球 + 主面板的生命周期（互相切换）；</li>
  *     <li>接收任务点击事件并通过 {@link DHAccessibilityService#executeTask} 执行；</li>
+ *     <li>对于实现 {@link AccountAwareTask} 的任务（如 Register），先弹出账号选择界面；</li>
  *     <li>处理执行结果并刷新面板状态。</li>
  * </ol>
  */
@@ -39,6 +46,7 @@ public final class OverlayController {
 
     private FloatingBallView ballView;
     private TaskPanelView panelView;
+    private AccountPickerDialog accountPicker;
 
     private boolean taskRunning;
 
@@ -76,6 +84,10 @@ public final class OverlayController {
         if (panelView != null) {
             panelView.hide();
             panelView = null;
+        }
+        if (accountPicker != null) {
+            accountPicker.dismiss();
+            accountPicker = null;
         }
         service = null;
         mainHandler.removeCallbacksAndMessages(null);
@@ -144,6 +156,54 @@ public final class OverlayController {
             LogUtil.w("无障碍服务未连接，无法执行任务");
             return;
         }
+
+        if (task instanceof AccountAwareTask && ((AccountAwareTask) task).requiresAccountSelection()) {
+            showAccountPicker(task);
+            return;
+        }
+
+        startTask(task);
+    }
+
+    /**
+     * 显示账号选择器。
+     */
+    private void showAccountPicker(@NonNull AutomationTask task) {
+        Context context = service != null ? service.getApplicationContext() : null;
+        if (context == null) {
+            return;
+        }
+        List<Account> accounts = AccountFileLoader.loadAccounts(context);
+        if (accounts.isEmpty()) {
+            if (panelView != null) {
+                panelView.setStatus(
+                        service.getString(R.string.panel_no_account_file),
+                        TaskPanelView.StatusColor.ERROR);
+            }
+            LogUtil.w("account.txt 中没有可用账号");
+            return;
+        }
+        if (panelView != null) {
+            panelView.setStatus(
+                    service.getString(R.string.panel_select_account, task.getName()),
+                    TaskPanelView.StatusColor.IDLE);
+        }
+        accountPicker = new AccountPickerDialog(context, accounts, account -> {
+            accountPicker = null;
+            if (!(task instanceof AccountAwareTask)) {
+                return;
+            }
+            ((AccountAwareTask) task).setAccount(account);
+            LogUtil.i("已选择账号: " + account.getEmail());
+            startTask(task);
+        });
+        accountPicker.show();
+    }
+
+    private void startTask(@NonNull AutomationTask task) {
+        if (service == null) {
+            return;
+        }
         taskRunning = true;
         if (panelView != null) {
             panelView.setStatus(
@@ -168,5 +228,16 @@ public final class OverlayController {
                             task.getName() + (result.getMessage().isEmpty() ? "" : "： " + result.getMessage())),
                     TaskPanelView.StatusColor.ERROR);
         }
+    }
+
+    /**
+     * 暴露给单元测试或外部使用的账号列表（只读快照）。
+     */
+    @NonNull
+    public List<Account> peekAccounts() {
+        if (service == null) {
+            return Collections.emptyList();
+        }
+        return AccountFileLoader.loadAccounts(service.getApplicationContext());
     }
 }
